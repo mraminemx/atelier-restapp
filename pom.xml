@@ -102,25 +102,4 @@
 		</plugins>
 	</build>
 
-    <profiles>
-        <profile>
-            <id>tomcat</id>
-            <properties>
-                <spring.profiles.active>tomcat</spring.profiles.active>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-		<profile>
-			<id>notomcat</id>
-			<properties>
-				<spring.profiles.active>notomcat</spring.profiles.active>
-			</properties>
-		</profile>
-    </profiles>
-
 </project>
