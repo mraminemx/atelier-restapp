@@ -11,7 +11,7 @@ Suivez les étapes ci-dessous pour lancer l'application localement sur votre mac
 
 ### Étapes :
 
-1. Cloner le repository depuis GitHub : git clone https://github.com/amalmoum/atelier-restapp.git
+1. Cloner le repository depuis GitHub : git clone https://github.com/mraminemx/atelier-restapp.git
 2. Accéder au répertoire du projet : cd atelier-restapp
 4. Compiler le projet : mvn clean install
 5. Lancer l'application : mvn spring-boot:run

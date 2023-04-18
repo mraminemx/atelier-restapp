@@ -8,7 +8,6 @@ import co.tenisu.atelierrestapp.repository.PlayerRepository;
 import co.tenisu.atelierrestapp.service.PlayerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -18,9 +17,12 @@ import java.util.List;
 public class PlayerServiceImpl implements PlayerService {
 
     private final Logger LOGGER = LoggerFactory.getLogger(PlayerServiceImpl.class);
-
-    @Autowired 
+    
     PlayerRepository playerRepository;
+    
+    public PlayerServiceImpl(PlayerRepository playerRepository) {
+        this.playerRepository = playerRepository;
+    }
     
     @Override 
     public List<Player> getAllPlayersOrderByRank() {
@@ -45,7 +47,7 @@ public class PlayerServiceImpl implements PlayerService {
                 throw new BusinessException(BusinessErrorCode.PLAYER_NOT_FOUND, "Joueur non trouvé");
             }
         } catch (BusinessException e) {
-            LOGGER.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage());
             throw new BusinessException(e.getCode(), e.getMessage());
         } catch (Exception e) {
             String message = "Une erreur s'est produite lors de la récupération d'un joueur par son id";
@@ -70,8 +72,8 @@ public class PlayerServiceImpl implements PlayerService {
             Double medianHeight = playerRepository.calculateMedianHeight();
 
             // Créer la réponse
-            StatisticResponseDto response = new StatisticResponseDto(countryWithHighestWinRatio, averageIMC, medianHeight);
-            return response;
+            return new StatisticResponseDto(countryWithHighestWinRatio, averageIMC, medianHeight);
+            
         } catch (Exception e) {
             String message = "Une erreur s'est produite lors de la récupération des statistiques des joueurs";
             LOGGER.error(message, e);

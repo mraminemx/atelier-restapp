@@ -6,8 +6,8 @@ import lombok.Data;
 public class StatisticResponseDto {
 
     private String countryWithHighestWinRatio;
-    private double averageIMC;
-    private double medianHeight;
+    private Double averageIMC;
+    private Double medianHeight;
 
     public StatisticResponseDto(String countryWithHighestWinRatio, Double averageIMC, Double medianHeight) {
         this.countryWithHighestWinRatio = countryWithHighestWinRatio;
