@@ -10,10 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,15 +29,14 @@ public class DataLoader {
     public void loadData() throws IOException, URISyntaxException {
         // Charger le fichier JSON
         String filename = "players.json";
-        URL resource = getClass().getClassLoader().getResource("data/" + filename);
-        if (resource == null) {
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("data/" + filename);
+        if (inputStream == null) {
             throw new IllegalArgumentException("file not found!");
         } else {
             LOGGER.debug("Chargement du fichier json {} en base H2", filename);
-            File jsonFile = new File(resource.toURI());
             ObjectMapper objectMapper = new ObjectMapper();
-            PlayerList playerList = objectMapper.readValue(jsonFile, PlayerList.class);
-    
+            PlayerList playerList = objectMapper.readValue(inputStream, PlayerList.class);
+
             // Enregistrer les joueurs dans la base de données
             List<Player> players = Arrays.asList(playerList.getPlayers());
             playerRepository.saveAll(players);
